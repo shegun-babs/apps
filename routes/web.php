@@ -38,7 +38,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', function(MailService $service){
+Route::get('test', function(\App\Contracts\EmailValidate $service){
 
     dd(auth()->user()->campaign()->where('id', 1)->get());
 
