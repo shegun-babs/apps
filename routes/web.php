@@ -16,21 +16,21 @@ use Illuminate\Support\Facades\Redis;
 use Mailgun\Mailgun;
 
 Route::get('/', function () {
-    //1.publish event
-    $data = [
-        'event' => 'UserSignedUp',
-        'data' =>  [
-            'username' => 'Shegun',
-        ],
-    ];
-
-    $data2 = [
-        'event' => 'ContactUploadStarted',
-        'msg' => 'Contact Upload has started',
-    ];
-
-    Redis::publish('test-channel', json_encode($data));
-    Redis::publish('notification-channel', json_encode($data));
+//    //1.publish event
+//    $data = [
+//        'event' => 'UserSignedUp',
+//        'data' =>  [
+//            'username' => 'Shegun',
+//        ],
+//    ];
+//
+//    $data2 = [
+//        'event' => 'ContactUploadStarted',
+//        'msg' => 'Contact Upload has started',
+//    ];
+//
+//    Redis::publish('test-channel', json_encode($data));
+//    Redis::publish('notification-channel', json_encode($data));
 
     //2. Node.js + Redis subscribe to event
 
