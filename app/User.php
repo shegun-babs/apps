@@ -1,0 +1,48 @@
+<?php
+
+namespace App;
+
+use App\Models\Campaign;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'username', 'email', 'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+
+    public function campaign()
+    {
+        return $this->hasMany(Campaign::class);
+    }
+
+
+    public function mailingList()
+    {
+        return $this->hasMany('App\Models\MailingList');
+    }
+
+
+    public function emailContacts()
+    {
+        return $this->hasManyThrough('App\Models\Recipient', 'App\Models\MailingList');
+    }
+}

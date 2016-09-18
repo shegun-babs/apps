@@ -1,0 +1,44 @@
+input[type="button"] {
+    padding: 10px;
+}
+
+div.activity-item {
+    padding: 20px;
+}
+.activity-item i {
+    float: left;
+    margin-top: 6px;
+    font-size: 16px;
+}
+div.activity {
+    margin-left: 28px;
+    font-size: 16px;
+}
+
+div.activity span {
+    display: block;
+    color: #999;
+    font-size: 11px;
+    line-height: 14px;
+}
+
+.flash-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.flash-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.flash-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+.flash-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
