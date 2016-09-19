@@ -29,6 +29,7 @@ class MailgunEmailService implements Mailer
     protected $view;
     protected $subject;
     protected $oTag;
+    protected $html;
     private $client;
 
 
@@ -41,7 +42,7 @@ class MailgunEmailService implements Mailer
         $this->client = $client;
     }
 
-    public function oTag($tag1, $tag2=null, $tag3=null)
+    public function oTag($tag1, $tag2 = null, $tag3 = null)
     {
         if ($tag1 && count($this->oTag) < 3)
             $this->oTag[] = $tag1;
@@ -49,54 +50,52 @@ class MailgunEmailService implements Mailer
             $this->oTag[] = $tag2;
         if ($tag3 && count($this->oTag) < 3)
             $this->oTag[] = $tag3;
-
+        return $this;
     }
 
     public function domain($domain)
     {
         $this->domain = $domain;
+        return $this;
     }
 
     public function from($email, $subject)
     {
-        if (!$this->from || !$this->subject):
-            throw new \Exception("The From and Subject variables are required.");
-        else:
-            $this->from = $email;
-            $this->subject = $subject;
-        endif;
+
+        $this->from = $email;
+        $this->subject = $subject;
+        return $this;
     }
 
 
     public function to($email)
     {
-        if (!$this->to)
-            throw new \Exception("To address is required");
-        else
-            $this->to = $email;
+        $this->to = $email;
+        return $this;
     }
 
 
     public function view($view, $data = [])
     {
-        $this->view = view($view, $data)->render();
+        $this->html = view($view, $data)->render();
+        return $this;
     }
 
 
     public function send()
     {
-        $this->client->sendMessage($this->domain, [
-            'from' => $this->from,
-            'to' => $this->to,
-            'subject' => $this->subject,
-            'text' => $this->text,
-            'html' => $this->view,
-        ]);
+        return $this->client->sendMessage($this->domain, $this->prepare());
     }
 
 
     private function prepare()
     {
+        if (!$this->to)
+            throw new \Exception("To address is required");
+        if (!$this->from || !$this->subject):
+            throw new \Exception("The From and Subject variables are required.");
+        endif;
+
         $var = [
             'from' => $this->from,
             'to' => $this->to,
@@ -106,9 +105,10 @@ class MailgunEmailService implements Mailer
         if ($this->text)
             $var['text'] = $this->text;
         if ($this->html)
-            $var['html'] = $this->view;
+            $var['html'] = $this->html;
         if ($this->oTag && count($this->oTag) < 3)
             $var['o:tag'] = $this->oTag;
 
+        return $var;
     }
 }

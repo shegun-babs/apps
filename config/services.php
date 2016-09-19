@@ -20,6 +20,12 @@ return [
         'key' => env('MAILGUN_PUBLIC_API_KEY'),
     ],
 
+    'jabisod' =>[
+        'domain' => env('JABISOD_MAILGUN_DOMAIN'),
+        'secret' => env('JABISOD_MAILGUN_SECRET'),
+        'key' => env('JABISOD_MAILGUN_KEY'),
+    ],
+
     'ses' => [
         'key' => env('SES_KEY'),
         'secret' => env('SES_SECRET'),

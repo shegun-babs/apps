@@ -38,23 +38,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', function(\App\Contracts\EmailValidate $service){
-
-    dd(auth()->user()->campaign()->where('id', 1)->get());
-
-    $result = $service->validate('test@malibukokoko.com');
-    dd($result);
-});
-
-
-Route::get('login/{id}', function($id){
+Route::get('login/{id}', function ($id) {
     auth()->loginUsingId($id);
     return redirect()->route('ml_path');
 });
 Route::group(
-    ['prefix'=>'campaign'], function() {
-    Route::get('/', ['as'=>'cp_path', 'uses'=>'CampaignController@all']);
-    Route::post('/', ['as'=>'post_new_path', 'uses'=>'CampaignController@postNew']);
+    ['prefix' => 'campaign'], function () {
+    Route::get('/', ['as' => 'cp_path', 'uses' => 'CampaignController@all']);
+    Route::post('/', ['as' => 'post_new_path', 'uses' => 'CampaignController@postNew']);
 });
 Route::group(
     ['prefix' => 'mailing-list'], function () {
@@ -63,5 +54,14 @@ Route::group(
     Route::post('new', ['as' => 'post_new_ml_path', 'uses' => 'MailingListController@postNew']);
     Route::get('{id}/view', ['as' => 'view_ml_path', 'uses' => 'MailingListController@view']);
     Route::post('{id}/upload-contacts', ['as' => 'upload_ml_path', 'uses' => 'MailingListController@upload']);
-    Route::get('{id}/delete', ['as'=>'del_ml_path', 'uses'=>'MailingListController@delete']);
+    Route::get('{id}/delete', ['as' => 'del_ml_path', 'uses' => 'MailingListController@delete']);
+});
+
+Route::group(
+    ['prefix' => 'test'], function () {
+    Route::get('email', 'TestController@email');
+});
+
+Route::get('phpinfo', function(){
+    return phpinfo();
 });

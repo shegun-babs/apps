@@ -10,6 +10,14 @@ class CampaignController extends Controller
 {
 
 
+    /**
+     * CampaignController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function all()
     {
         $data = auth()->user()->campaign()->get();
