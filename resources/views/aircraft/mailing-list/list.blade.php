@@ -54,9 +54,8 @@
                 <tbody>
                 <?php $count = 0; ?>
                 @foreach($data as $row)
-                    <?php $count++; ?>
                     <tr>
-                        <td>{{$count}}</td>
+                        <td>{{++$count}}</td>
                         <td>{{$row->name}}</td>
                         <td>{{$row->description}}</td>
                         <td>
