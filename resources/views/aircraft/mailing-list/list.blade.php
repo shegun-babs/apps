@@ -40,7 +40,6 @@
                 <th>#</th>
                 <th>List Name</th>
                 <th>Description</th>
-                <th>Contacts</th>
                 <th style="">actions</th>
             </tr>
             </thead>
@@ -51,7 +50,6 @@
                     <td>{{++$count}}</td>
                     <td>{{$row->name}}</td>
                     <td>{{$row->description}}</td>
-                    <td>{{count($row->recipients)}}</td>
                     <td>
                         <a href="{{route('view_ml_path', ['id'=>$row->id])}}" class="btn btn-xs btn-primary"><i
                                     class="fa fa-pencil"></i> View</a>
