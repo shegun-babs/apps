@@ -54,16 +54,18 @@ class UploadMailingListContacts implements ShouldQueue
     {
         if ($this->verifyOwner()):
 
-            $emails = explode("\r", file_get_contents($this->filepath));
+            if (file_exists($this->filepath)):
+                $emails = explode("\r", file_get_contents($this->filepath));
 
-            foreach ($emails as $email):
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)):
-                    $now = Carbon::now();
-                    DB::insert('insert ignore into recipients (mailing_list_id, email, valid, created_at, updated_at) values (?, ?, ?, ?, ?)', [$this->mailing_list_id, $email, 0, $now, $now]);
-                endif;
-            endforeach;
+                foreach ($emails as $email):
+                    if (filter_var($email, FILTER_VALIDATE_EMAIL)):
+                        $now = Carbon::now();
+                        DB::insert('insert ignore into recipients (mailing_list_id, email, valid, created_at, updated_at) values (?, ?, ?, ?, ?)', [$this->mailing_list_id, $email, 0, $now, $now]);
+                    endif;
+                endforeach;
+            endif;
         endif;
-        unlink($this->filepath);
+        @unlink($this->filepath);
     }
 
 
