@@ -3,12 +3,7 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
 @stop
 @section('foot')
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#recipientsTable').DataTable();
-        });
-    </script>
+
 @stop
 
 @section('content')
@@ -22,17 +17,17 @@
     </div>
 
     <div class="main-content ml-">
-        @if (!is_null($data))
+        @if (!is_null($list))
             @include('layouts.aircraft.partials.errors')
             <dl class="dl-horizontal">
                 <dt>List Name</dt>
-                <dd>{{$data->name}}</dd>
+                <dd>{{$list->name}}</dd>
                 <dt>List Description</dt>
-                <dd>{{$data->description}}</dd>
+                <dd>{{$list->description}}</dd>
             </dl>
 
             <div class="mt-20 mb-20">
-                <form action="{{route('upload_ml_path', ['id' => $data->id])}}" method="post"
+                <form action="{{route('upload_ml_path', ['id' => $list->id])}}" method="post"
                       style="border: 1px solid #fef;"
                       enctype="multipart/form-data">
                     {{ csrf_field()  }}
@@ -43,11 +38,10 @@
             </div>
 
 
-
             <h4>List Contacts</h4>
             <div class="col-md-10 col-md-offset-1">
-            @if($data->recipients->count())
-                <table class="table display" id="recipientsTable">
+            @if($data->count())
+                <table class="table display clear" id="recipientsTable">
                     <thead>
                     <tr>
                         <th>Email</th>
@@ -56,7 +50,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($data->recipients as $contact)
+                    @foreach($data as $contact)
                         <tr>
                             <td>{{$contact->email}}</td>
                             <td>{{$contact->valid === NULL ? 'Not Checked' : ($contact->valid ? 'Yes' : 'No')}}</td>
@@ -65,6 +59,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                    {{$data->links()}}
             @else
                 <div class="alert alert-info">
                     No Email Contacts Yet

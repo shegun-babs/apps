@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\EmailValidate;
 use App\Contracts\Mailer;
-use App\Services\MailgunEmailService;
+use App\Services\Mailer\MailgunEmailService;
 use App\Services\MailgunEmailValidateService;
 use Illuminate\Support\ServiceProvider;
 use Mailgun\Mailgun;

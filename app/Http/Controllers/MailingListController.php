@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Forms\NewListForm;
 use App\Http\Forms\RecipientsUploadForm;
 use App\Jobs\UploadMailingListContacts;
+use App\Models\MailingList;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 
 class MailingListController extends Controller
 {
@@ -20,8 +22,8 @@ class MailingListController extends Controller
     public function all()
     {
         //$contactsCount = auth()->user()->emailContacts()->count();
-        $data = auth()->user()->mailingList()->notHidden()->with('recipients')->get();
-        return view('aircraft.mailing-list.list', ['data'=>$data]);
+        $data = auth()->user()->mailingList()->notHidden()->with('recipients')->simplePaginate(100);
+        return view('aircraft.mailing-list.list', ['data' => $data]);
     }
 
 
@@ -35,9 +37,11 @@ class MailingListController extends Controller
 
     public function view($id)
     {
-        if ($id)
-        $data = auth()->user()->mailingList()->where('id',$id)->with('recipients')->first();
-        return view('aircraft.mailing-list.view', compact('data'));
+        $dat = [];
+        if ($this->verifyOwner($id))
+            $list = DB::table('mailing_list')->select('id','name','description')->where('id',$id)->first();
+            $data = DB::table('recipients')->paginate(100);
+        return view('aircraft.mailing-list.view', ['data'=>$data, 'list'=> $list]);
     }
 
 
@@ -55,5 +59,11 @@ class MailingListController extends Controller
         $this->dispatch(new UploadMailingListContacts($target, $id, auth()->user()));
         flash()->success("File Uploaded Successfully. Your uploads will appear soon.");
         return redirect()->back();
+    }
+
+
+    private function verifyOwner($list_id)
+    {
+        return (bool) MailingList::find($list_id)->user->id == auth()->user()->id;
     }
 }

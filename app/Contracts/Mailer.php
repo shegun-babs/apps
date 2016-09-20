@@ -9,11 +9,15 @@
 namespace App\Contracts;
 
 
+use Illuminate\Support\Collection;
+
 interface Mailer
 {
 
+    public function domain($domain);
+
     public function from($email, $subject);
 
-    public function to($email);
+    public function to(Collection $email);
 
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redis;
 use Mailgun\Mailgun;
 
 Route::get('/', function () {
+    return \Carbon\Carbon::now();
 //    //1.publish event
 //    $data = [
 //        'event' => 'UserSignedUp',
@@ -60,6 +61,8 @@ Route::group(
 Route::group(
     ['prefix' => 'test'], function () {
     Route::get('email', 'TestController@email');
+    Route::get('batch', 'TestController@batch');
+    Route::get('schedule', 'TestController@schedule');
 });
 
 Route::get('phpinfo', function(){

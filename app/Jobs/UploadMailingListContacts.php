@@ -6,10 +6,12 @@ use App\Contracts\EmailValidate;
 use App\Contracts\MailService;
 use App\Models\MailingList;
 use App\Models\Recipient;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\DB;
 
 class UploadMailingListContacts implements ShouldQueue
 {
@@ -48,32 +50,18 @@ class UploadMailingListContacts implements ShouldQueue
      * @param MailService $service
      * @param MailingList $mailingList
      */
-    public function handle(EmailValidate $service, MailingList $mailingList)
+    public function handle()
     {
         if ($this->verifyOwner()):
 
             $emails = explode("\r", file_get_contents($this->filepath));
 
             foreach ($emails as $email):
-                $r = $service->validate($email);
-                $mailingListModel = $mailingList->find($this->mailing_list_id);
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) && $r->isValid() && !$mailingListModel->recipients()->where('email', $email)->first()):
-                    $mailingListModel->recipients()->create(['email' => $email, 'valid' => 1]);
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)):
+                    $now = Carbon::now();
+                    DB::insert('insert ignore into recipients (mailing_list_id, email, valid, created_at, updated_at) values (?, ?, ?, ?, ?)', [$this->mailing_list_id, $email, 0, $now, $now]);
                 endif;
             endforeach;
-
-//            foreach ($file as $email):
-//                $email = trim($email);
-//                $r = $service->validate($email);
-//                if (filter_var($email, FILTER_VALIDATE_EMAIL) && $r->isValid()):
-//                    $mailingList->find($this->mailing_list_id)->recipients()->create(['email' => $email, 'valid' => 1]);
-//                //$model[] = new Recipient(['email' => $email, 'valid' => 1,]);
-//                else:
-//                    $mailingList->find($this->mailing_list_id)->recipients()->create(['email' => $email,]);
-//                    //$model[] = new Recipient(['email' => $email, 'valid' => 0,]);
-//                endif;
-//            endforeach;
-            //$mailingList->find($this->mailing_list_id)->recipients()->saveMany($model);
         endif;
         unlink($this->filepath);
     }
