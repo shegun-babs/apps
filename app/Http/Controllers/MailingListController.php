@@ -40,7 +40,7 @@ class MailingListController extends Controller
         $dat = [];
         if ($this->verifyOwner($id))
             $list = DB::table('mailing_list')->select('id','name','description')->where('id',$id)->first();
-            $data = DB::table('recipients')->paginate(100);
+            $data = DB::table('recipients')->select('email','valid','hidden')->where('mailing_list_id', $id)->paginate(100);
         return view('aircraft.mailing-list.view', ['data'=>$data, 'list'=> $list]);
     }
 
