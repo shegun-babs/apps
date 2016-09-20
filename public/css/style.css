@@ -42,3 +42,8 @@ div.activity span {
     background-color: #f2dede;
     border-color: #ebccd1;
 }
+
+.ml-5{margin-left:5px;}
+.mr-5{margin-right:5px;}
+.pl-5{padding-left:5px;}
+.pr-5{padding-right:5px;}

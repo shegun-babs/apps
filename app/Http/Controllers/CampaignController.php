@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Forms\NewCampaignForm;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,5 +23,13 @@ class CampaignController extends Controller
     {
         $data = auth()->user()->campaign()->get();
         return view('aircraft.campaign.start', compact('data'));
+    }
+
+
+    public function postNew(NewCampaignForm $form)
+    {
+        $form->save();
+        flash()->success("Campaign Created");
+        return redirect()->back();
     }
 }

@@ -39,15 +39,7 @@ $(function(){
 @stop
 
 @section('content')
-    <div class="header">
-        <h1 class="page-title">Users</h1>
-        <ul class="breadcrumb">
-            <li><a href="#!">Home</a></li>
-            <li class="active">Campaign</li>
-        </ul>
 
-    </div>
-    <div class="main-content">
         @include('aircraft.modals.new-campaign')
         @include('layouts.aircraft.partials.errors')
         <div class="btn-toolbar list-toolbar">
