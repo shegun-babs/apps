@@ -65,6 +65,6 @@ class ValidateEmails extends Command
 
         $bar->finish();
 
-        $this->info( $completed ." Numbers of Rows are valid and " . $failed . " Numbers of rows are invalid and have been removed." );
+        $this->info( "\n".$completed ." Numbers of Rows are valid and " . $failed . " Numbers of rows are invalid and have been removed." );
     }
 }
