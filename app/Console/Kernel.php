@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Repositories\RecipientsRepo;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -14,22 +15,22 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\ValidateEmails::class
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param RecipientsRepo $repo
      */
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->call(function(){
-            //$data = DB::
-        })->everyMinute();
+//        $schedule->call(function(RecipientsRepo $repo){
+//            $repo->validateEmails();
+//        })->everyMinute();
     }
 
     /**

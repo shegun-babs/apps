@@ -18,14 +18,33 @@
                     <dd>{{$list->description}}</dd>
                 </dl>
 
-                <div class="mt-20 mb-20" style="margin-left:20px;">
+
+                <div class="col-md-6">
                     <form action="{{route('upload_ml_path', ['id' => $list->id])}}" method="post"
-                          style="border: 1px solid #fef;"
-                          enctype="multipart/form-data">
+                          style="border: 1px solid #e0e0e0;padding: 0 20px"
+                          enctype="multipart/form-data" class="">
                         {{ csrf_field()  }}
-                        <input type="file" name="file" accept="file_extension" class="btn btn-info"
-                               style="display:inline-block">
-                        <input type="submit" value="upload" class="btn btn-primary">
+                        <div class="form-group">
+                            <label for="file">File input</label>
+                            <input type="file" name="file" id="file">
+                            <p class="help-block">Each email should be on a separate line.</p>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="upload" class="btn btn-primary">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form action="{{route('save_ml_path', ['id'=>$list->id])}}" method="post">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for="emails">Emails</label>
+                            <textarea name="emails" id="emails" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary">
+                        </div>
                     </form>
                 </div>
             </div>

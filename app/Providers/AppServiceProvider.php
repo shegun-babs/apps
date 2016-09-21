@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+
         $this->app->singleton(Mailer::class, function($app, $config) use ($config){
             $config = config('services.mailgun');
             return new MailgunEmailService(

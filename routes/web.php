@@ -10,6 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+use App\Contracts\EmailValidate;
 use App\Contracts\MailService;
 use App\Services\MailgunService;
 use Illuminate\Support\Facades\Redis;
@@ -55,6 +56,7 @@ Route::group(
     Route::post('new', ['as' => 'post_new_ml_path', 'uses' => 'MailingListController@postNew']);
     Route::get('{id}/view', ['as' => 'view_ml_path', 'uses' => 'MailingListController@view']);
     Route::post('{id}/upload-contacts', ['as' => 'upload_ml_path', 'uses' => 'MailingListController@upload']);
+    Route::post('{id}/save-contacts', ['as' => 'save_ml_path', 'uses' => 'MailingListController@saveContacts']);
     Route::get('{id}/delete', ['as' => 'del_ml_path', 'uses' => 'MailingListController@delete']);
 });
 

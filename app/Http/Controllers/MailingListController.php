@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Forms\NewListForm;
 use App\Http\Forms\RecipientsUploadForm;
+use App\Http\Forms\SaveRecipientsForm;
 use App\Jobs\UploadMailingListContacts;
 use App\Models\MailingList;
 use Illuminate\Http\Request;
@@ -33,6 +34,12 @@ class MailingListController extends Controller
         $form->save();
         flash()->success("List Added Successfully");
         return redirect()->route('ml_path');
+    }
+
+
+    public function saveContacts($id, SaveRecipientsForm $form)
+    {
+        $form->save();
     }
 
 
