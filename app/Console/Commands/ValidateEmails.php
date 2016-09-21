@@ -46,6 +46,8 @@ class ValidateEmails extends Command
     {
         $data = DB::table('recipients')->select('email')->where('valid', 0)->limit($this->argument('limit'))->get();
         $bar = $this->output->createProgressBar(count($data));
+        $completed = 0;
+        $failed = 0;
 
         #2 loop thru
         foreach ($data as $row):
@@ -53,12 +55,16 @@ class ValidateEmails extends Command
             if ($this->validate->validate($row->email)->isValid()):
                 #4 update db row
                 DB::table('recipients')->where('email', $row->email)->update(['valid' => 1]);
+                ++$completed;
             else:
                 DB::table('recipients')->where('email', $row->email)->delete();
+                ++$failed;
             endif;
             $bar->advance();
         endforeach;
 
         $bar->finish();
+
+        $this->info( $completed ." Numbers of Rows are valid and " . $failed . " Numbers of rows are invalid and have been removed." );
     }
 }
