@@ -9,7 +9,6 @@
 namespace App\Services\Mailer;
 
 use App\Contracts\Mailer;
-use Illuminate\Support\Collection;
 
 
 /**
@@ -60,7 +59,7 @@ class MailgunEmailService implements Mailer
     }
 
 
-    public function to(Collection $email)
+    public function to($email)
     {
         $this->to = $email;
         return $this;
@@ -106,32 +105,21 @@ class MailgunEmailService implements Mailer
             throw new \Exception("The From and Subject variables are required.");
         endif;
 
-        $data = $this->processCollection();
-
         $var = [
             'from' => $this->from,
-            'to' => $data->emails,
+            'to' => $this->to,
             'subject' => $this->subject,
-            'recipient-variables' => $data->data,
         ];
 
         if ($this->text)
             $var['text'] = $this->text;
 
-        if ($this->html)
+        if ($this->view)
             $var['html'] = $this->view;
 
         if ($this->oTag && count($this->oTag) < 3)
             $var['o:tag'] = $this->oTag;
 
             return $var;
-    }
-
-
-    private function processCollection()
-    {
-        if ( !$this->to )
-            throw new \Exception("The To: variable cannot be empty");
-        return make_r_variables($this->to);
     }
 }

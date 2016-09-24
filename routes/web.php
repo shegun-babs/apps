@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Redis;
 use Mailgun\Mailgun;
 
 Route::get('/', function () {
-    return \Carbon\Carbon::now();
+//    return view('emails.marketing.jabisod.test');
+//    return \Carbon\Carbon::now();
 //    //1.publish event
 //    $data = [
 //        'event' => 'UserSignedUp',
@@ -44,14 +45,24 @@ Route::get('login/{id}', function ($id) {
     auth()->loginUsingId($id);
     return redirect()->route('ml_path');
 });
+
+
 Route::group(
-    ['prefix' => 'campaign'], function () {
+    ['prefix' => 'u'], function(){
+
+    Route::get('{list_id}/{email}', ['as'=>'unsub_path', 'uses'=>'UnsubscribeController@unsub']);
+
+});
+
+Route::group(
+    ['prefix' => 'campaigns'], function () {
     Route::get('/', ['as' => 'cp_path', 'uses' => 'CampaignController@all']);
     Route::post('/', ['as' => 'post_new_path', 'uses' => 'CampaignController@postNew']);
+    Route::get('{id}/view', ['as'=>'view_cp_path', 'uses'=>'CampaignController@view']);
 });
 Route::group(
     ['prefix' => 'mailing-list'], function () {
-    Route::get('/', ['as' => 'ml_path', 'uses' => 'MailingListController@all']);
+    Route::get('/', ['as' => 'ml_path', 'uses' => 'MailingListController@home']);
     Route::get('new', ['as' => 'new_ml_path', 'uses' => 'MailingListController@newList']);
     Route::post('new', ['as' => 'post_new_ml_path', 'uses' => 'MailingListController@postNew']);
     Route::get('{id}/view', ['as' => 'view_ml_path', 'uses' => 'MailingListController@view']);
@@ -62,7 +73,7 @@ Route::group(
 
 Route::group(
     ['prefix' => 'test'], function () {
-    Route::get('email', 'TestController@email');
+    Route::get('email/{email}', 'TestController@email');
     Route::get('batch', 'TestController@batch');
     Route::get('schedule', 'TestController@schedule');
 });
@@ -70,3 +81,7 @@ Route::group(
 Route::get('phpinfo', function(){
     return phpinfo();
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

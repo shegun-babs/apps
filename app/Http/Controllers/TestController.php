@@ -13,14 +13,14 @@ class TestController extends Controller
 {
 
 
-    public function email(Mailer $mailer)
+    public function email($email, Mailer $mailer)
     {
-        $users = collect(["segxzyl@yahoo.co.uk, shegunbabs@gmail.com"]);
-        $out = $mailer->domain('shegunbabs.com')
-            ->from("segun@shegunbabs.com", "Jabisod Sales for %recipient.email%")
-            ->to($users)
-            ->view('emails.marketing.jabisod.test')
-            ->oTag('marketing-email')
+
+        $domain = config('services.jabisod')['domain'];
+        $out = $mailer->domain($domain)
+            ->from("Jabisod Agencies <info@jabisodagencies.com>", "Jabisod Sales")
+            ->to($email)
+            ->view('emails.marketing.jabisod.test', ['email'=>encrypt($email)])
             ->send();
         dd($out);
     }
@@ -42,5 +42,11 @@ class TestController extends Controller
         foreach ($rows as $row):
             echo $row->id . '=>>>>' . $row->email . '<br />';
         endforeach;
+    }
+
+
+    public function unsub($email)
+    {
+        return decrypt($email);
     }
 }

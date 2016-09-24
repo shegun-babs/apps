@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Campaign extends Model
 {
     protected $table = 'campaigns';
-    protected $fillable = ['name', 'description', 'startdate', 'enddate', 'starthour', 'endhour' ];
+    protected $fillable = ['name', 'mailing_list_id', 'description', 'startdate'];
     protected $dates = ['deleted_at'];
 
 

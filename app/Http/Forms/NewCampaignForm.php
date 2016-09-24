@@ -14,9 +14,7 @@ class NewCampaignForm extends Form
         'name' => 'required',
         'description' => 'string|min:5',
         'startdate' => 'required|date',
-        'enddate' => 'required|date',
-        'starthour' => 'required|integer',
-        'endhour' => 'required|integer',
+        'mailingList' => 'required|string',
     ];
     protected $messages = [
 
@@ -25,13 +23,9 @@ class NewCampaignForm extends Form
 
     public function persist()
     {
-        $this->request->merge([
-            'startdate' => Carbon::createFromFormat("m/d/Y",$this->startdate),
-            'enddate' => Carbon::createFromFormat("m/d/Y",$this->enddate),
-        ]);
+        $this->request->merge(['mailing_list_id' => $this->mailingList ]);
         $campaign = Auth::user()->campaign()->create($this->fields());
     }
-
 
 
 }

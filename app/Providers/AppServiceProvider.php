@@ -29,18 +29,19 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $config = config('services.mailgun');
-        $this->app->singleton(EmailValidate::class, function($app) use ($config) {
+        $this->app->singleton(EmailValidate::class, function ($app) use ($config) {
             return new MailgunEmailValidateService(
                 new Mailgun($config['key'])
             );
         });
 
 
-        $this->app->singleton(Mailer::class, function($app, $config) use ($config){
-            $config = config('services.mailgun');
+        $this->app->singleton(Mailer::class, function ($app) {
+            $config = config('services.jabisod');
             return new MailgunEmailService(
                 new Mailgun($config['secret'])
             );
         });
+
     }
 }

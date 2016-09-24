@@ -22,7 +22,8 @@ class CampaignController extends Controller
     public function all()
     {
         $data = auth()->user()->campaign()->get();
-        return view('aircraft.campaign.start', compact('data'));
+        $mailingList = auth()->user()->mailingList()->get();
+        return view('default.campaigns.start', ['data'=>$data, 'mailingList'=>$mailingList]);
     }
 
 
@@ -31,5 +32,12 @@ class CampaignController extends Controller
         $form->save();
         flash()->success("Campaign Created");
         return redirect()->back();
+    }
+
+
+    public function view($id)
+    {
+        $data = auth()->user()->campaign()->where('id', $id)->with('MailingList')->first();
+        return view('default.campaigns.view', compact('data'));
     }
 }

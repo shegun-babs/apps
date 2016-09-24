@@ -8,9 +8,6 @@
 
 namespace App\Contracts;
 
-
-use Illuminate\Support\Collection;
-
 interface Mailer
 {
 
@@ -18,6 +15,6 @@ interface Mailer
 
     public function from($email, $subject);
 
-    public function to(Collection $email);
+    public function to($email);
 
 }

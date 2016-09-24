@@ -15,6 +15,7 @@ if (!function_exists('flash')) {
 function make_r_variables(Collection $rec, $data='email')
 {
     $emails = $rec->implode('email', ", ");
+    $r = [];
 
     foreach ($rec as $row)
     {
