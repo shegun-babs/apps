@@ -56,7 +56,18 @@
                         <li><a href="#">Recipients</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Email Campaigns</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">SMS Campaigns <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Send SMS</a></li>
+                        <li><a href="#">Group</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Contacts</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Campaigns</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">SMS Campaigns</a></li>
             </ul>
 

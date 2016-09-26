@@ -15,6 +15,7 @@ class TestController extends Controller
 
     public function email($email, Mailer $mailer)
     {
+        return view('emails.marketing.jabisod.campaign_one');
 
         $domain = config('services.jabisod')['domain'];
         $out = $mailer->domain($domain)

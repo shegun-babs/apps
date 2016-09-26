@@ -14,5 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/user', function (Request $request) {
-    return $request->user();
+    return dd($request->user());
 })->middleware('auth:api');
+
+Route::group(
+    ['prefix'=>'/v1/sms/', 'namespace'=>'Api\Sms'], function(){
+    Route::post('send-single', 'ApiController@send_single');
+});
+//Route::get('/v1/sms/send-single');

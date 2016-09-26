@@ -17,21 +17,21 @@
                             {{$data->MailingList->name}}
                             <hr>
                             <h4>Start Date</h4>
-                            {{$data->MailingList->startdate}}
+                            {{$data->startdate}}
                             <hr>
                             <h4>Running</h4>
-                            {{ $data->MailingList->running ? 'Yes':'No'  }}
+                            {{ $data->running ? 'Yes':'No'  }}
                         </div>
 
                         <div class="panel-footer">
-                            <a href="#" class="btn btn-default" data-target="#myModal" data-toggle="modal">Edit
+                            <a href="#" class="btn btn-default">Edit
                                 Campaign</a>
-                            @if($data->MailingList->running)
+                            @if($data->running)
                                 <a href="#" class="btn btn-info">Stop Campaign</a>
                             @else
                                 <a href="#" class="btn btn-success">Start Campaign</a>
                             @endif
-                            <a href="#" class="btn btn-danger" data-target="#myModal" data-toggle="modal">Delete
+                            <a href="#" class="btn btn-danger">Delete
                                 Campaign</a>
                         </div>
                     </div>
