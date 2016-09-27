@@ -51,7 +51,7 @@ class SendJabisodMarketingEmails extends Command
         $bar = $this->output->createProgressBar(count($emails));
 
         foreach ($emails as $row):
-            $out = $mailer($domain)
+            $out = $mailer->domain($domain)
                 ->from("Jabisod Agencies <info@jabisodagencies.com>", "Home and Office Improvement Solutions")
                 ->to($row->email, ['email' => encrypt($row->email), 'list_id' => encrypt($mailing_list_id)])
                 ->send();
