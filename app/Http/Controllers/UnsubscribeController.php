@@ -11,6 +11,6 @@ class UnsubscribeController extends Controller
 
     public function unsub($list_id, $email)
     {
-        return view('aircraft.unsub.start');
+        return view('default.unsub.start');
     }
 }

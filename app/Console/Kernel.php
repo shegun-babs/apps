@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ValidateEmails::class
+        Commands\ValidateEmails::class,
+        Commands\SendJabisodMarketingEmails::class
     ];
 
     /**

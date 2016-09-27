@@ -30,6 +30,7 @@ class MailgunEmailService implements Mailer
     protected $subject;
     protected $oTag;
     protected $html;
+    protected $bcc;
     private $client;
 
 
@@ -65,6 +66,12 @@ class MailgunEmailService implements Mailer
         return $this;
     }
 
+    public function bcc($email)
+    {
+        $this->bcc = $email;
+        return $this;
+    }
+
 
     public function view($view, $data = [])
     {
@@ -88,6 +95,7 @@ class MailgunEmailService implements Mailer
     public function text($text)
     {
         $this->text = $text;
+        return $this;
     }
 
 
@@ -119,6 +127,9 @@ class MailgunEmailService implements Mailer
 
         if ($this->oTag && count($this->oTag) < 3)
             $var['o:tag'] = $this->oTag;
+
+        if ($this->bcc)
+            $var['bcc'] = $this->bcc;
 
             return $var;
     }

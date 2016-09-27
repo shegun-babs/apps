@@ -15,15 +15,22 @@ class TestController extends Controller
 
     public function email($email, Mailer $mailer)
     {
-        return view('emails.marketing.jabisod.campaign_one');
-
+        //return view('emails.marketing.jabisod.campaign_one');
+        $text = "This email is to introduce you to the wide range of services and products jabisod has to offer";
+        $bcc = 'segxzyl@gmail.com';
+        $list_id = 77;
         $domain = config('services.jabisod')['domain'];
         $out = $mailer->domain($domain)
-            ->from("Jabisod Agencies <info@jabisodagencies.com>", "Jabisod Sales")
+            ->from("Jabisod Services <support@jabisodagencies.com>", "Home and Office Improvement Solutions")
             ->to($email)
-            ->view('emails.marketing.jabisod.test', ['email'=>encrypt($email)])
+            ->bcc($bcc)
+            ->view('emails.marketing.jabisod.campaign_one', ['email'=>encrypt($bcc),'list_id'=>encrypt($list_id)])
+            ->text($text)
             ->send();
-        dd($out);
+        if ( $out->http_response_code == 200 )
+            return 'sent';
+        else
+            return 'not done';
     }
 
 
