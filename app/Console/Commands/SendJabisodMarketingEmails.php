@@ -54,6 +54,7 @@ class SendJabisodMarketingEmails extends Command
             $out = $mailer->domain($domain)
                 ->from("Jabisod Agencies <info@jabisodagencies.com>", "Home and Office Improvement Solutions")
                 ->to($row->email, ['email' => encrypt($row->email), 'list_id' => encrypt($mailing_list_id)])
+                ->view('emails.marketing.jabisod.campaign_one')
                 ->send();
 
             if ($out->http_response_code == 200):
