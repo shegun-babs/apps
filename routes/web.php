@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Redis;
 use Mailgun\Mailgun;
 
 Route::get('/', function () {
-    $list_id = 77;
-    $result = $results = DB::select('select email from recipients where mailing_list_id = :id AND email NOT IN (select email from emarketing_sent WHERE mailing_list_id = :list_id) LIMIT :limit', ['id' => $list_id, 'list_id'=>$list_id, 'limit'=> 5]);
-
-    foreach($result as $row){
-        echo $row->email . "<br/>";
-    }
+//    $list_id = 77;
+//    $result = $results = DB::select('select email from recipients where mailing_list_id = :id AND email NOT IN (select email from emarketing_sent WHERE mailing_list_id = :list_id) LIMIT :limit', ['id' => $list_id, 'list_id'=>$list_id, 'limit'=> 5]);
+//
+//    foreach($result as $row){
+//        echo $row->email . "<br/>";
+//    }
 
     //dd($result);
 
