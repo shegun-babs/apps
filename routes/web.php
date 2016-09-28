@@ -17,14 +17,6 @@ use Illuminate\Support\Facades\Redis;
 use Mailgun\Mailgun;
 
 Route::get('/', function () {
-//    $list_id = 77;
-//    $result = $results = DB::select('select email from recipients where mailing_list_id = :id AND email NOT IN (select email from emarketing_sent WHERE mailing_list_id = :list_id) LIMIT :limit', ['id' => $list_id, 'list_id'=>$list_id, 'limit'=> 5]);
-//
-//    foreach($result as $row){
-//        echo $row->email . "<br/>";
-//    }
-
-    //dd($result);
 
 //    return view('emails.marketing.jabisod.test');
 //    return \Carbon\Carbon::now();
@@ -50,24 +42,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login/{id}', function ($id) {
-    auth()->loginUsingId($id);
-    return redirect()->route('ml_path');
-});
-
-
+Route::get('/home', 'HomeController@index');
 Route::group(
     ['prefix' => 'u'], function(){
 
-    Route::get('{list_id}/{email}', ['as'=>'unsub_path', 'uses'=>'UnsubscribeController@unsub']);
+    Route::get('{list_id}/{email}', 'UnsubscribeController@unsub')->name('unsub_path');
 
 });
 
 Route::group(
     ['prefix' => 'campaigns'], function () {
-    Route::get('/', ['as' => 'cp_path', 'uses' => 'CampaignController@all']);
-    Route::post('/', ['as' => 'post_new_path', 'uses' => 'CampaignController@postNew']);
-    Route::get('{id}/view', ['as'=>'view_cp_path', 'uses'=>'CampaignController@view']);
+    Route::get('/', 'CampaignController@all')->name('cp_path');
+    Route::post('/', 'CampaignController@postNew')->name('post_new_path');
+    Route::get('{id}/view', 'CampaignController@view')->name('view_cp_path');
+    Route::get('/sent-list', 'CampaignController@sentList')->name('sent_list_path');
+    Route::get('/sent-view/{list_id}', 'CampaignController@sentview')->name('sent_view_path');
 });
 Route::group(
     ['prefix' => 'mailing-list'], function () {
@@ -90,7 +79,4 @@ Route::group(
 Route::get('phpinfo', function(){
     return phpinfo();
 });
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');

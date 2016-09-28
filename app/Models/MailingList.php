@@ -16,6 +16,12 @@ class MailingList extends Model
     }
 
 
+    public function emarketingSent()
+    {
+        return $this->hasMany(EmarketingSent::class);
+    }
+
+
     public function recipients()
     {
         return $this->hasMany('App\Models\Recipient');

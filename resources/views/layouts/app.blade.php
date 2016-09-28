@@ -14,6 +14,7 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/all.css" rel="stylesheet">
     <link href="/css/font-awesome.css" rel="stylesheet">
+    @yield('head')
 
     <!-- Scripts -->
     <script>
@@ -51,6 +52,7 @@
                        aria-expanded="false">Email Campaigns <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('cp_path')}}">Campaigns</a></li>
+                        <li><a href="{{route('sent_list_path')}}">Sent Emails</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Mailing Lists</a></li>
                         <li role="separator" class="divider"></li>
@@ -114,6 +116,6 @@
         <!-- Scripts -->
 <script src="/js/app.js"></script>
 <script src="/js/all.js"></script>
-@include('layouts.global.flash')
+@yield('foot')
 </body>
 </html>

@@ -6,6 +6,7 @@ use App\Http\Forms\NewCampaignForm;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 
 class CampaignController extends Controller
 {
@@ -23,7 +24,7 @@ class CampaignController extends Controller
     {
         $data = auth()->user()->campaign()->get();
         $mailingList = auth()->user()->mailingList()->get();
-        return view('default.campaigns.start', ['data'=>$data, 'mailingList'=>$mailingList]);
+        return view('default.campaigns.start', ['data' => $data, 'mailingList' => $mailingList]);
     }
 
 
@@ -39,5 +40,29 @@ class CampaignController extends Controller
     {
         $data = auth()->user()->campaign()->where('id', $id)->with('MailingList')->first();
         return view('default.campaigns.view', compact('data'));
+    }
+
+
+    public function sentList()
+    {
+        $data = DB::table('emarketing_sent')
+            ->distinct()
+            ->join('mailing_list', 'emarketing_sent.mailing_list_id', '=', 'mailing_list.id')
+            ->select('mailing_list.id', 'mailing_list.name')
+            ->get();
+        //dd($data);
+        return view('default.campaigns.sent-list-list', compact('data'));
+
+    }
+
+
+    public function sentView(Request $request)
+    {
+        if ($request->list_id):
+            $data = DB::table('emarketing_sent')->where('mailing_list_id', $request->list_id)->paginate(20);
+            return view('default.campaigns.sent-view-list', compact('data'));
+        endif;
+        flash()->message("Invalid Request");
+        return redirect()->back();
     }
 }
