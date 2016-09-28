@@ -22,7 +22,7 @@ class UnsubscribeController extends Controller
     				'created_at' => Carbon::now(),
     				'updated_at' => Carbon::now(),
     				]);
-    	} catch(/Exception $e) {
+    	} catch(\Exception $e) {
 
     	}
         return view('default.unsub.start', compact('email'));
