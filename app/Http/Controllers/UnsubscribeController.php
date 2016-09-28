@@ -24,7 +24,7 @@ class UnsubscribeController extends Controller
     				'updated_at' => Carbon::now(),
     				]);
     	} catch(DecryptException $e) {
-    		flash()->error("Your email was not found on our list")
+    		flash()->error("Your email was not found on our list");
     	}
         return view('default.unsub.start', compact('email'));
     }
