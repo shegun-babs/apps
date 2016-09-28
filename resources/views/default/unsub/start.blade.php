@@ -9,7 +9,7 @@
 
                     <div class="panel-body">
                         <h4>Unsubscribe from Jabisod Newsletter</h4>
-                        <div href="#!" class="btn btn-info mt-10">You have been Unsubscribed</div>
+                        <div href="#!" class="btn btn-info mt-10">{{$email}} has been Unsubscribed</div>
 
                         <p class="mt-20">
                             You will stop receiving newletters from Jabisod Agencies.
@@ -21,4 +21,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('head')
+<meta http-equiv="refresh" content="5;URL='http://jabisodagencies.com/'" /> 
 @endsection

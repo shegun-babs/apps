@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illiminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class UnsubscribeController extends Controller
 {
@@ -22,8 +23,8 @@ class UnsubscribeController extends Controller
     				'created_at' => Carbon::now(),
     				'updated_at' => Carbon::now(),
     				]);
-    	} catch(\Exception $e) {
-
+    	} catch(DecryptException $e) {
+    		flash()->error("Your email was not found on our list")
     	}
         return view('default.unsub.start', compact('email'));
     }
