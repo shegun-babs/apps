@@ -70,6 +70,7 @@ class SendJabisodMarketingEmails extends Command
         endforeach;
 
         $bar->finish();
+        $this->info("\nFinished processing...\n");
 
     }
 }

@@ -9,7 +9,7 @@
 
                     <div class="panel-body">
                         <h4>Unsubscribe from Jabisod Newsletter</h4>
-                        <a href="#" class="btn btn-info mt-10">Unsubscribe me</a>
+                        <div href="#!" class="btn btn-info mt-10">You have been Unsubscribed</div>
 
                         <p class="mt-20">
                             You will stop receiving newletters from Jabisod Agencies.
