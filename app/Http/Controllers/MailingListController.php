@@ -24,8 +24,9 @@ class MailingListController extends Controller
     {
         //$contactsCount = auth()->user()->emailContacts()->count();
         $data = [];
-        $data = auth()->user()->mailingList()->notHidden()->paginate(5);
-        return view('aircraft.mailing-list.list', ['data' => $data]);
+        $data = auth()->user()->mailingList()->notHidden()->with('recipients')->paginate(5);
+        return view('default.mailing-list.mailing-lists', ['data'=>$data]);
+        //return view('aircraft.mailing-list.list', ['data' => $data]);
     }
 
 

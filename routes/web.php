@@ -59,8 +59,8 @@ Route::group(
     Route::get('/sent-view/{list_id}', 'CampaignController@sentview')->name('sent_view_path');
 });
 Route::group(
-    ['prefix' => 'mailing-list'], function () {
-    Route::get('/', ['as' => 'ml_path', 'uses' => 'MailingListController@home']);
+    ['prefix' => 'mailing-lists'], function () {
+    Route::get('/', 'MailingListController@home')->name('ml_path');
     Route::get('new', ['as' => 'new_ml_path', 'uses' => 'MailingListController@newList']);
     Route::post('new', ['as' => 'post_new_ml_path', 'uses' => 'MailingListController@postNew']);
     Route::get('{id}/view', ['as' => 'view_ml_path', 'uses' => 'MailingListController@view']);

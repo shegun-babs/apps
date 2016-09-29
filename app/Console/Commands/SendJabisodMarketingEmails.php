@@ -70,7 +70,7 @@ class SendJabisodMarketingEmails extends Command
         endforeach;
 
         $bar->finish();
-        $this->info("\nFinished processing...\n");
+        $this->info("\nFinished processing at [" . Carbon::now() ."] \n");
 
     }
 }
