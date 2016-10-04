@@ -15,7 +15,7 @@
                             <div class="row">
                                 <ul class="mailing-list">
                                     @foreach($data as $row)
-                                        <li class="col-lg-3 col-md-3 col col-sm-6 col-xs-12">
+                                        <li class="col-lg-4 col-md-4 col col-sm-6 col-xs-12">
                                             <a href="#">
                                                 {{$row->name}}
                                                 <span>{{$row->created_at->format("d-m-Y")}}</span>
