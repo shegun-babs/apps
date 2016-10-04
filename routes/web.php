@@ -14,6 +14,9 @@ use App\Contracts\EmailValidate;
 use App\Contracts\MailService;
 use App\Services\MailgunService;
 use Illuminate\Support\Facades\Redis;
+use infobip\api\client\SendSingleTextualSms;
+use infobip\api\configuration\BasicAuthConfiguration;
+use infobip\api\model\sms\mt\send\textual\SMSTextualRequest;
 use Mailgun\Mailgun;
 
 Route::get('/', function () {
@@ -44,7 +47,7 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 Route::group(
-    ['prefix' => 'u'], function(){
+    ['prefix' => 'u'], function () {
 
     Route::get('{list_id}/{email}', 'UnsubscribeController@unsub')->name('unsub_path');
 
@@ -76,7 +79,31 @@ Route::group(
     Route::get('schedule', 'TestController@schedule');
 });
 
-Route::get('phpinfo', function(){
+Route::group(
+    ['prefix' => 'sms'], function () {
+    Route::get('single-send', function () {
+        $config = config('services.pensms');
+        $client = new SendSingleTextualSms(new BasicAuthConfiguration($config['username'], $config['password']));
+        $requestBody = new SMSTextualRequest();
+        $requestBody->setFrom("Shegun Babs");
+        $requestBody->setTo(['2348188697770']);
+        $requestBody->setText("example message");
+
+        try {
+            $response = $client->execute($requestBody);
+            $sentMessageInfo = $response->getMessages()[0];
+            echo "MessageID: ". $sentMessageInfo->getMessageId();
+            echo "Receiver: " . $sentMessageInfo->getTo() . "\n";
+            echo "Message status: " . $sentMessageInfo->getStatus()->getName();
+            dd($sentMessageInfo);
+        } catch (Exception $e) {
+            echo "HTTP status code: " . $e->getCode() . "\n";
+            echo "Error message: " . $e->getMessage();
+        }
+    });
+});
+
+Route::get('phpinfo', function () {
     return phpinfo();
 });
 Auth::routes();

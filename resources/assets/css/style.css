@@ -1,4 +1,52 @@
+a:link {
+    color: #1f6377;
+}
+
 .app-start {
     border: 1px solid #f6f6f6;
     text-align: center;
+}
+ul.mailing-list {
+    margin: 0 0 30px 0;
+    list-style: none;
+    position: relative;
+}
+
+ul.mailing-list li a {
+    background: #f9f9f9;
+    border: 1px solid #f1f1f1;
+    color: #333;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0;
+    outline: none;
+    padding: 10px 30px 10px 18px;
+    position: relative;
+    text-decoration: none;
+}
+
+ul.mailing-list li a:hover,
+ul.mailing-list a:hover span:after{
+    text-decoration: none;
+    color: #00A000;
+}
+
+ul.mailing-list a span {
+    color: #999 !important;
+    display: block;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+ul.mailing-list a span:after {
+    color: #ccc;
+    content: '\f054';
+    font-family: 'FontAwesome';
+    font-size: 18px;
+    margin-top: -15px;
+    position: absolute;
+    right: 11px;
+    top: 50%;
 }

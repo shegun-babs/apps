@@ -54,7 +54,7 @@
                         <li><a href="{{route('cp_path')}}">Campaigns</a></li>
                         <li><a href="{{route('sent_list_path')}}">Sent Emails</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Mailing Lists</a></li>
+                        <li><a href="{{route('ml_path')}}">Mailing Lists</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Recipients</a></li>
                     </ul>

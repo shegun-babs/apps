@@ -42,4 +42,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'pensms' => [
+        'username' => env('PENSMS_USERNAME'),
+        'password' => env('PENSMS_PASSWORD'),
+    ],
+
 ];
