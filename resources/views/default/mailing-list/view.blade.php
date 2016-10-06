@@ -16,10 +16,10 @@
                                 <h3>{{$data->name}}</h3>
                             </div>
                             <ul class="list">
-                                <li><span>Created</span> {{$data->created_at}}</li>
-                                <li><span>Recipients</span> {{$count}}</li>
-                                <li><span>Sent Emails</span> {{$sent_emails}}</li>
-                                <li><span>Un-subscribes</span> {{$unsubscribes}}</li>
+                                <li><span>Created</span> {{$data->created_at->format("jS, M Y")}}</li>
+                                <li><span>Recipients</span> {{number_format($count)}}</li>
+                                <li><span>Sent Emails</span> {{number_format($sent_emails)}}</li>
+                                <li><span>Un-subscribes</span> {{number_format($unsubscribes)}}</li>
                             </ul>
                         </div>
                         <div class="panel-footer">

@@ -67,6 +67,7 @@ ul.mailing-list a span:after {
     line-height: 25px;
     text-align: left;
     word-spacing: 0;
+    letter-spacing: 1px;
 }
 .list li span{
     color: #404040;
