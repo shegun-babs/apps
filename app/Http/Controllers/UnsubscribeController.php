@@ -18,7 +18,7 @@ class UnsubscribeController extends Controller
     		$email = decrypt($email);
     		DB::table('emarketing_unsubscribes')
     			->insert([
-    				'list_id' => $list_id,
+    				'mailing_list_id' => $list_id,
     				'email' => $email,
     				'created_at' => Carbon::now(),
     				'updated_at' => Carbon::now(),

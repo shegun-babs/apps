@@ -10,21 +10,17 @@
             <div class="col-md-8 col-md-offset-2">
                 @if($data->count())
                     <div class="panel panel-default animated bounce">
-                        <div class="panel-heading">Mailing Lists</div>
+                        <div class="panel-heading">{{ucfirst($data->name)}}</div>
                         <div class="panel-body">
-                            <div class="row">
-                                <ul class="mailing-list">
-                                    @foreach($data as $row)
-                                        <li class="col-lg-4 col-md-4 col col-sm-6 col-xs-12">
-                                            <a href="{{route('view_ml_path',['id'=>$row->id])}}">
-                                                {{$row->name}}
-                                                <span>{{$row->created_at->format("d-m-Y")}}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            <div class="p-title">
+                                <h3>{{$data->name}}</h3>
                             </div>
-                            {{$data->links()}}
+                            <ul class="list">
+                                <li><span>Created</span> {{$data->created_at}}</li>
+                                <li><span>Recipients</span> {{$count}}</li>
+                                <li><span>Sent Emails</span> {{$sent_emails}}</li>
+                                <li><span>Un-subscribes</span> {{$unsubscribes}}</li>
+                            </ul>
                         </div>
                         <div class="panel-footer">
                         </div>

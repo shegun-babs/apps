@@ -50,3 +50,29 @@ ul.mailing-list a span:after {
     right: 11px;
     top: 50%;
 }
+
+.p-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+.p-title h3 {
+    color: #212121;
+    margin-bottom: 10px;
+    padding:0 125px 0 0;
+}
+.list li {
+    color: #969696;
+    display: block;
+    font-weight:normal;
+    line-height: 25px;
+    text-align: left;
+    word-spacing: 0;
+}
+.list li span{
+    color: #404040;
+    float: left;
+    line-height: 25px;
+    margin:0 5px 0 0;
+    min-width: 100px;
+    font-weight: 700;
+}

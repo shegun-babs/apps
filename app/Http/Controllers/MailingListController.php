@@ -10,6 +10,7 @@ use App\Models\MailingList;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class MailingListController extends Controller
 {
@@ -22,11 +23,8 @@ class MailingListController extends Controller
 
     public function home()
     {
-        //$contactsCount = auth()->user()->emailContacts()->count();
-        $data = [];
         $data = auth()->user()->mailingList()->paginate(20);
-        return view('default.mailing-list.mailing-lists', ['data'=>$data]);
-        //return view('aircraft.mailing-list.list', ['data' => $data]);
+        return view('default.mailing-list.mailing-lists', ['data' => $data]);
     }
 
 
@@ -46,11 +44,18 @@ class MailingListController extends Controller
 
     public function view($id)
     {
-        $dat = [];
-        if ($this->verifyOwner($id))
-            $list = DB::table('mailing_list')->select('id','name','description')->where('id',$id)->first();
-            $data = DB::table('recipients')->select('email','valid','hidden')->where('mailing_list_id', $id)->paginate(100);
-        return view('aircraft.mailing-list.view', ['data'=>$data, 'list'=> $list]);
+        $mailingList = MailingList::find($id);
+        if ( Gate::allows('list-owner', $mailingList) ){
+            $count = DB::select('select count(*) as all_recipients from recipients where mailing_list_id = ?', [$id]);
+            $sent_emails = DB::select('select count(*) as sent_emails from emarketing_sent where mailing_list_id = ?', [$id]);
+            $unsubscribes = DB::select('select count(*) as unsubscribes from emarketing_unsubscribes where mailing_list_id = ?', [$id]);
+            $data = auth()->user()->mailingList()->first();
+            return view('default.mailing-list.view',
+                ['data'=>$data, 'count'=>$count[0]->all_recipients, 'sent_emails'=>$sent_emails[0]->sent_emails, 'unsubscribes'=>$unsubscribes[0]->unsubscribes]);
+        } else {
+            flash()->error("You are not authorized to view");
+            return redirect()->back();
+        }
     }
 
 
@@ -73,6 +78,6 @@ class MailingListController extends Controller
 
     private function verifyOwner($list_id)
     {
-        return (bool) MailingList::find($list_id)->user->id == auth()->user()->id;
+        return (bool)MailingList::find($list_id)->user->id == auth()->user()->id;
     }
 }

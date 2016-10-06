@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('list-owner', function($user, $mailing_list){
+            return $user->id == $mailing_list->user_id;
+        });
+
         //
     }
 }

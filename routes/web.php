@@ -18,7 +18,7 @@ use infobip\api\client\SendSingleTextualSms;
 use infobip\api\configuration\BasicAuthConfiguration;
 use infobip\api\model\sms\mt\send\textual\SMSTextualRequest;
 use Mailgun\Mailgun;
-
+Auth::routes();
 Route::get('/', function () {
 
 //    return view('emails.marketing.jabisod.test');
@@ -48,9 +48,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index');
 Route::group(
     ['prefix' => 'u'], function () {
-
     Route::get('{list_id}/{email}', 'UnsubscribeController@unsub')->name('unsub_path');
-
 });
 
 Route::group(
@@ -64,9 +62,9 @@ Route::group(
 Route::group(
     ['prefix' => 'mailing-lists'], function () {
     Route::get('/', 'MailingListController@home')->name('ml_path');
-    Route::get('new', ['as' => 'new_ml_path', 'uses' => 'MailingListController@newList']);
-    Route::post('new', ['as' => 'post_new_ml_path', 'uses' => 'MailingListController@postNew']);
-    Route::get('{id}/view', ['as' => 'view_ml_path', 'uses' => 'MailingListController@view']);
+    Route::get('new', 'MailingListController@newList')->name('new_ml_path');
+    Route::post('new', 'MailingListController@postNew')->name('post_new_ml_path');
+    Route::get('{id}/view', 'MailingListController@view')->name('view_ml_path');
     Route::post('{id}/upload-contacts', ['as' => 'upload_ml_path', 'uses' => 'MailingListController@upload']);
     Route::post('{id}/save-contacts', ['as' => 'save_ml_path', 'uses' => 'MailingListController@saveContacts']);
     Route::get('{id}/delete', ['as' => 'del_ml_path', 'uses' => 'MailingListController@delete']);
@@ -106,4 +104,3 @@ Route::group(
 Route::get('phpinfo', function () {
     return phpinfo();
 });
-Auth::routes();
