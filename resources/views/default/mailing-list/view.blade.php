@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                @if($data->count())
+                @if($data)
                     <div class="panel panel-default animated bounce">
                         <div class="panel-heading">{{ucfirst($data->name)}}</div>
                         <div class="panel-body">
@@ -19,7 +19,7 @@
                                 <li><span>Created</span> {{$data->created_at->format("jS, M Y")}}</li>
                                 <li><span>Recipients</span> {{number_format($count)}}</li>
                                 <li><span>Sent Emails</span> {{number_format($sent_emails)}}</li>
-                                <li><span>Un-subscribes</span> {{number_format($unsubscribes)}}</li>
+                                <li><span>Un-subscribes</span> <a href="{{route('u_search',['id'=>$data->id])}}">{{number_format($unsubscribes)}}</a></li>
                             </ul>
                         </div>
                         <div class="panel-footer">

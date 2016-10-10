@@ -68,6 +68,8 @@ Route::group(
     Route::post('{id}/upload-contacts', ['as' => 'upload_ml_path', 'uses' => 'MailingListController@upload']);
     Route::post('{id}/save-contacts', ['as' => 'save_ml_path', 'uses' => 'MailingListController@saveContacts']);
     Route::get('{id}/delete', ['as' => 'del_ml_path', 'uses' => 'MailingListController@delete']);
+    Route::get('{id}/unsubscribes', 'UnsubscribeController@search')->name('u_search');
+    Route::post('{id}/unsubscribes', 'UnsubscribeController@postSearch')->name('post_search');
 });
 
 Route::group(
@@ -75,6 +77,9 @@ Route::group(
     Route::get('email/{email}', 'TestController@email');
     Route::get('batch', 'TestController@batch');
     Route::get('schedule', 'TestController@schedule');
+    Route::get('search', function(){
+        return view('default.recipients.search');
+    });
 });
 
 Route::group(

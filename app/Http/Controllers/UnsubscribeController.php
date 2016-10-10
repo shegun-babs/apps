@@ -28,4 +28,19 @@ class UnsubscribeController extends Controller
     	}
         return view('default.unsub.start', compact('email'));
     }
+
+
+	public function search()
+	{
+		return view('default.unsub.search');
+	}
+
+
+    public function postSearch(Request $request)
+    {
+        $start = $request->start_date;
+        $end = $request->end_date;
+        $data = DB::table('emarketing_recipients')->select('email', 'created_at')->whereBetween('created_at', [$start, $end])->paginate(10);
+        return view('default.unsub.search', compact('data'));
+    }
 }

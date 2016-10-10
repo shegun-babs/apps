@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Model\EmarketingRecipient;
 use Illuminate\Database\Eloquent\Model;
 
 class MailingList extends Model
@@ -24,7 +25,7 @@ class MailingList extends Model
 
     public function recipients()
     {
-        return $this->hasMany('App\Models\Recipient');
+        return $this->hasMany(EmarketingRecipient::class);
         //return $this->hasMany('App\Models\emailContacts', 'foreign_key','local_key');
     }
 

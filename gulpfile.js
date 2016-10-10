@@ -38,6 +38,6 @@ elixir(function (mix) {
     ;
 
     mix.less('font-awesome.less')
-        .styles(['vertical-rhythm.min.css', 'style.css', 'animate.css'])
-        .scripts(["jquery.noty.packaged.js", "noty.js"]);
+        .styles(['vertical-rhythm.min.css', 'style.css', 'animate.css','bootstrap-datepicker3.min.css'])
+        .scripts(["jquery.noty.packaged.js", "noty.js","typescript.js","bootstrap-datepicker.min.js"]);
 });

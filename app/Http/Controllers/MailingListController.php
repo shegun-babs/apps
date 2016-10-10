@@ -46,10 +46,10 @@ class MailingListController extends Controller
     {
         $mailingList = MailingList::find($id);
         if ( Gate::allows('list-owner', $mailingList) ){
-            $count = DB::select('select count(*) as all_recipients from recipients where mailing_list_id = ?', [$id]);
+            $count = DB::select('select count(*) as all_recipients from emarketing_recipients where mailing_list_id = ?', [$id]);
             $sent_emails = DB::select('select count(*) as sent_emails from emarketing_sent where mailing_list_id = ?', [$id]);
             $unsubscribes = DB::select('select count(*) as unsubscribes from emarketing_unsubscribes where mailing_list_id = ?', [$id]);
-            $data = auth()->user()->mailingList()->first();
+            $data = auth()->user()->mailingList()->where('id', $id)->first();
             return view('default.mailing-list.view',
                 ['data'=>$data, 'count'=>$count[0]->all_recipients, 'sent_emails'=>$sent_emails[0]->sent_emails, 'unsubscribes'=>$unsubscribes[0]->unsubscribes]);
         } else {

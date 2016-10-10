@@ -45,7 +45,7 @@ class SendJabisodMarketingEmails extends Command
         $limit = $this->argument('limit');
         $domain = config('services.jabisod')['domain'];
         //get emails that have not been 'sent email'
-        $emails = DB::select('SELECT email FROM recipients WHERE mailing_list_id = :id AND email NOT IN (SELECT email FROM emarketing_sent WHERE mailing_list_id = :list_id) LIMIT :limit',
+        $emails = DB::select('SELECT email FROM emarketing_recipients WHERE mailing_list_id = :id AND email NOT IN (SELECT email FROM emarketing_sent WHERE mailing_list_id = :list_id) LIMIT :limit',
             ['id' => $mailing_list_id, 'list_id' => $mailing_list_id, 'limit' => $limit]);
 
         $bar = $this->output->createProgressBar(count($emails));
