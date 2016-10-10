@@ -36,11 +36,18 @@ class UnsubscribeController extends Controller
 	}
 
 
-    public function postSearch(Request $request)
+    public function postSearch($id,Request $request)
     {
-        $start = $request->start_date;
-        $end = $request->end_date;
-        $data = DB::table('emarketing_recipients')->select('email', 'created_at')->whereBetween('created_at', [$start, $end])->paginate(10);
+        $start = trim($request->start_date) . " 00:00:00";
+        $end = trim($request->end_date) . " 23:59:59";
+        $data = DB::table('emarketing_unsubscribes')
+            ->select('email', 'created_at')
+            ->where('mailing_list_id', $id)
+            ->whereBetween('created_at', [$start, $end])
+            ->toSql()
+            //->paginate(10)
+            ;
+        dd($data);
         return view('default.unsub.search', compact('data'));
     }
 }
