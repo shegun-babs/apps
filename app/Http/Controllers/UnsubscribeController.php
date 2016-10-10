@@ -46,7 +46,7 @@ class UnsubscribeController extends Controller
                 //->toSql()
                 ->paginate(10);
         }
-		return view('default.unsub.search', ['id'=>$id, 'data'=>$data]);
+		return view('default.unsub.search', ['id'=>$id, 'data'=>$data, 'start'=>$request->start, 'end'=>$request->end]);
 	}
 
 

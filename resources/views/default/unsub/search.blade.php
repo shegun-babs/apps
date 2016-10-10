@@ -32,7 +32,7 @@
                                     </tr>
                                 @endforeach
                             </table>
-                            {{$data->links()}}
+                            {{$data->appends(['start'=>$start,'end'=>$end])->links()}}
                         @endif
 
                     </div>
