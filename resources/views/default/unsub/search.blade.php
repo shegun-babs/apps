@@ -48,8 +48,8 @@
                                 </tr>
                                 @foreach($data as $row)
                                     <tr>
-                                        <td>{{$data->email}}</td>
-                                        <td>{{$data->created_at}}</td>
+                                        <td>{{$row->email}}</td>
+                                        <td>{{$row->created_at}}</td>
                                     </tr>
                                 @endforeach
                             </table>
