@@ -6,41 +6,20 @@
                 <div class="panel panel-default animated bounce">
                     <div class="panel-heading">Search</div>
                     <div class="panel-body">
-                        <form class="form-inline" role="form" method="POST" action="#">
+                        <form class="form-inline mb-20" role="form" method="get" action="{{route('u_search',['id'=>$id])}}" id="search-form">
                             {{ csrf_field() }}
-                            <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                                <label for="start_date" class="col-md-4 control-label">Start Date</label>
-
-                                <div class="col-md-3">
-                                    <input id="start_date" type="text" class="form-control" name="start_date"
-                                           value="{{ old('start_date') }}"
-                                           required data-provide="datepicker">
-                                    @if ($errors->has('start_date'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('start_date') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-                                <label for="end_date" class="col-md-4 control-label">End Date</label>
-
-                                <div class="col-md-3">
-                                    <input id="end_date" type="text" class="form-control" name="end_date"
-                                           value="{{ old('end_date') }}"
-                                           required data-provide="datepicker">
-                                    @if ($errors->has('end_date'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('end_date') }}</strong>
-                                    </span>
-                                    @endif
+                            <div class="col-md-6">
+                                <div class="input-group input-daterange" id="event_period">
+                                    <input name="start" id="start" type="text" class="form-control actual_range">
+                                    <span class="input-group-addon">to</span>
+                                    <input name="end" id="end" type="text" class="form-control actual_range">
                                 </div>
                             </div>
                             <button class="btn btn-primary" type="submit">Search</button>
                         </form>
 
                         @if(!empty($data))
-                            <div class="label label-info"><span>Total</span>{{$data->total()}}</div>
+                            <div class="label label-info"><span>Total: </span>{{$data->total()}}</div>
                             <table class="table table-striped table-bordered table-condensed">
                                 <tr>
                                     <td>Email</td>
@@ -69,6 +48,14 @@
         $(function () {
             $.fn.datepicker.defaults.format = "yyyy-mm-dd";
             $.fn.datepicker.defaults.autoclose = true;
+//            $('.input-daterange input').each(function() {
+//                $(this).datepicker("clearDates");
+//            });
+            $('#event_period').datepicker({
+                inputs: $('.actual_range')
+            });
+            $('form#search-form').on('submit', function(e){
+            });
         });
     </script>
 @endsection

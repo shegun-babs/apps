@@ -69,7 +69,7 @@ Route::group(
     Route::post('{id}/save-contacts', ['as' => 'save_ml_path', 'uses' => 'MailingListController@saveContacts']);
     Route::get('{id}/delete', ['as' => 'del_ml_path', 'uses' => 'MailingListController@delete']);
     Route::get('{id}/unsubscribes', 'UnsubscribeController@search')->name('u_search');
-    Route::post('{id}/unsubscribes', 'UnsubscribeController@postSearch')->name('post_search');
+    //Route::get('{id}/unsubscribes', 'UnsubscribeController@postSearch')->name('get_search');
 });
 
 Route::group(
