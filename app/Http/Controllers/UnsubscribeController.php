@@ -43,7 +43,7 @@ class UnsubscribeController extends Controller
                 ->select('email', 'created_at')
                 ->where('mailing_list_id', $id)
                 ->whereBetween('created_at', [$start, $end])
-                //->toSql()
+                ->distinct()
                 ->paginate(10);
         }
 		return view('default.unsub.search', ['id'=>$id, 'data'=>$data, 'start'=>$request->start, 'end'=>$request->end]);
