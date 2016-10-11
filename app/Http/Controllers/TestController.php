@@ -53,8 +53,8 @@ class TestController extends Controller
     }
 
 
-    public function unsub($email)
+    public function sidebar()
     {
-        return decrypt($email);
+
     }
 }

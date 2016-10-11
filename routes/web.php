@@ -71,15 +71,19 @@ Route::group(
     Route::get('{id}/unsubscribes', 'UnsubscribeController@search')->name('u_search');
     //Route::get('{id}/unsubscribes', 'UnsubscribeController@postSearch')->name('get_search');
 });
+Route::group(
+    ['prefix'=>'reporting'], function(){
+    Route::get('{id}/unsubscribes', 'ReportingController@unsub_search')->name('unsub_search');
+    Route::get('unsubscribes', 'ReportingController@unsub')->name('unsub');
+
+});
 
 Route::group(
     ['prefix' => 'test'], function () {
     Route::get('email/{email}', 'TestController@email');
     Route::get('batch', 'TestController@batch');
     Route::get('schedule', 'TestController@schedule');
-    Route::get('search', function(){
-        return view('default.recipients.search');
-    });
+    Route::get('sidebar', 'TestController@sidebar');
 });
 
 Route::group(

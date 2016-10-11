@@ -7,7 +7,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            @include('layouts.default.partials.sidebar')
+            <div class="col-md-9">
                 @if($data->count())
                     <div class="panel panel-default animated bounce">
                         <div class="panel-heading">Mailing Lists</div>
