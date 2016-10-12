@@ -29,7 +29,7 @@ class ReportingController extends Controller
             $start = trim($request->start) . " 00:00:00";
             $end = trim($request->end) . " 23:59:59";
             $data = DB::table('emarketing_unsubscribes')
-                ->select('mailing_list.name','emarketing_unsubscribes.email', 'emarketing_unsubscribes.created_at')->distinct()
+                ->select('emarketing_unsubscribes.email', 'emarketing_unsubscribes.created_at')->distinct()
                 ->where('emarketing_unsubscribes.mailing_list_id', $id)
                 ->whereBetween('emarketing_unsubscribes.created_at', [$start, $end])
                 ->paginate(10)
