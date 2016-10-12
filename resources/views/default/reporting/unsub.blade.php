@@ -9,7 +9,7 @@
                     <div class="panel-heading">Un-subscribes List</div>
                     <div class="panel-body">
                         <div class="col-md-6">
-                            <form method="get" action="{{route('unsub')}}">
+                            <form method="get" action="{{route('unsub')}}" id="form">
                                 <dl class="form-group">
                                     <dt>Mailing List</dt>
                                     <dd><select class="form-control" name="mailing_list_id" id="mailing_list">
@@ -18,6 +18,7 @@
                                                 <option value="{{$ml->id}}">{{ucwords($ml->name)}}</option>
                                             @endforeach
                                         </select>
+                                        <input type="hidden" name="mailing_list_name" id="ml_name">
                                     </dd>
                                 </dl>
                                 <p>
@@ -34,4 +35,9 @@
     </div>
 @endsection
 @section('foot')
+    <script>
+    $('#form').on("submit", function(e){
+        $('ml_name').val( $('#mailing_list').find(':selected').text() );
+    });
+    </script>
 @endsection

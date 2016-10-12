@@ -211,3 +211,15 @@ a:hover, a:active {
     border-bottom-right-radius: 2px;
     border-bottom-left-radius: 2px
 }
+.w-50{
+    width:50px;
+}
+.w-100{
+    width:100px;
+}
+.mw-50{
+    min-width: 50px;
+}
+.mw-100{
+    min-width:100px;
+}
