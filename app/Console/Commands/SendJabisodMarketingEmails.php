@@ -44,6 +44,7 @@ class SendJabisodMarketingEmails extends Command
         $mailing_list_id = $this->argument('mailing_list_id');
         $limit = $this->argument('limit');
         $domain = config('services.jabisod')['domain'];
+        $this->info("\nStarted processing at [" . Carbon::now() ."] \n");
         //get emails that have not been 'sent email'
         $emails = DB::select('SELECT email FROM emarketing_recipients WHERE mailing_list_id = :id AND email NOT IN (SELECT email FROM emarketing_sent WHERE mailing_list_id = :list_id) LIMIT :limit',
             ['id' => $mailing_list_id, 'list_id' => $mailing_list_id, 'limit' => $limit]);
@@ -52,7 +53,7 @@ class SendJabisodMarketingEmails extends Command
 
         foreach ($emails as $row):
             $out = $mailer->domain($domain)
-                ->from("Jabisod Agencies <info@jabisodagencies.com>", "Home and Office Improvement Solutions")
+                ->from("Jabisod Agencies <sales@jabisodagencies.com>", "Home and Office Improvement Solutions")
                 ->to($row->email)
                 ->view('emails.marketing.jabisod.campaign_one', ['email' => encrypt($row->email), 'list_id' => encrypt($mailing_list_id)])
                 ->send();
