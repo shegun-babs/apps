@@ -24,10 +24,10 @@ var paths = {
     'less': 'resources/assets/less/'
 };
 
-//elixir(mix => {
-//    mix.sass('app.scss')
-//       .webpack('app.js');
-//});
+elixir(mix => {
+    mix.sass('app.scss')
+       .webpack('app.js');
+});
 
 elixir(function (mix) {
 

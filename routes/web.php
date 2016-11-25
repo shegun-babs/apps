@@ -18,6 +18,7 @@ use infobip\api\client\SendSingleTextualSms;
 use infobip\api\configuration\BasicAuthConfiguration;
 use infobip\api\model\sms\mt\send\textual\SMSTextualRequest;
 use Mailgun\Mailgun;
+
 Auth::routes();
 Route::get('/', function () {
 
@@ -72,7 +73,7 @@ Route::group(
     //Route::get('{id}/unsubscribes', 'UnsubscribeController@postSearch')->name('get_search');
 });
 Route::group(
-    ['prefix'=>'reporting'], function(){
+    ['prefix' => 'reporting'], function () {
     Route::get('{id}/unsubscribes', 'ReportingController@unsub_search')->name('unsub_search');
     Route::get('unsubscribes', 'ReportingController@unsub')->name('unsub');
 
@@ -87,26 +88,33 @@ Route::group(
 });
 
 Route::group(
-    ['prefix' => 'sms'], function () {
-    Route::get('single-send', function () {
-        $config = config('services.pensms');
-        $client = new SendSingleTextualSms(new BasicAuthConfiguration($config['username'], $config['password']));
-        $requestBody = new SMSTextualRequest();
-        $requestBody->setFrom("Shegun Babs");
-        $requestBody->setTo(['2348188697770']);
-        $requestBody->setText("example message");
+    ['prefix' => 'test'], function () {
+    Route::get('crawler', function () {
+        
+        SSH::into('production')->run([
+            'cd /var/www/apps',
+            'sudo git pull',
+        ], function($line){
+            echo $line.PHP_EOL;
+        });
 
-        try {
-            $response = $client->execute($requestBody);
-            $sentMessageInfo = $response->getMessages()[0];
-            echo "MessageID: ". $sentMessageInfo->getMessageId();
-            echo "Receiver: " . $sentMessageInfo->getTo() . "\n";
-            echo "Message status: " . $sentMessageInfo->getStatus()->getName();
-            dd($sentMessageInfo);
-        } catch (Exception $e) {
-            echo "HTTP status code: " . $e->getCode() . "\n";
-            echo "Error message: " . $e->getMessage();
-        }
+        return;
+        $names = [];
+        $images = [];
+        $html = file_get_html("http://jabisodagencies.com/decopaper");
+
+        foreach ($html->find('dd[class=wp-caption-text]') as $element):
+            $names[] = trim($element->plaintext);
+        endforeach;
+
+        $counter = 0;
+        foreach ($html->find('dt img') as $element):
+            $images[$names[$counter]]['image'] = $element->{"data-orig-file"};
+            $counter++;
+        endforeach;
+
+
+
     });
 });
 
