@@ -18,6 +18,7 @@ use infobip\api\client\SendSingleTextualSms;
 use infobip\api\configuration\BasicAuthConfiguration;
 use infobip\api\model\sms\mt\send\textual\SMSTextualRequest;
 use Mailgun\Mailgun;
+use App\User;
 
 Auth::routes();
 Route::get('/', function () {
@@ -90,7 +91,7 @@ Route::group(
 Route::group(
     ['prefix' => 'test'], function () {
     Route::get('crawler', function () {
-        
+
         SSH::into('production')->run([
             'cd /var/www/apps',
             'sudo git pull',
@@ -99,19 +100,7 @@ Route::group(
         });
 
         return;
-        $names = [];
-        $images = [];
-        $html = file_get_html("http://jabisodagencies.com/decopaper");
 
-        foreach ($html->find('dd[class=wp-caption-text]') as $element):
-            $names[] = trim($element->plaintext);
-        endforeach;
-
-        $counter = 0;
-        foreach ($html->find('dt img') as $element):
-            $images[$names[$counter]]['image'] = $element->{"data-orig-file"};
-            $counter++;
-        endforeach;
 
 
 
